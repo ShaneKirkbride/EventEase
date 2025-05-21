@@ -1,0 +1,52 @@
+﻿@page "/events/{EventId:guid}/register"
+@inject IRegistrationService RegistrationService
+@inject NavigationManager Nav
+@using EventEase2.Models
+
+<h3>Register for Event</h3>
+
+@if (isSubmitted)
+{
+    <div class="alert alert-success">
+        Thank you, @registration.Name! You are registered.
+    </div>
+}
+else
+{
+    <EditForm Model="@registration" OnValidSubmit="HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <input type="hidden" value="@registration.EventId" />
+
+        <div class="mb-3">
+            <label>Name</label>
+            <InputText class="form-control" @bind-Value="registration.Name" />
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <InputText class="form-control" @bind-Value="registration.Email" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Register</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter] public Guid EventId { get; set; }
+
+    private EventRegistrationDto registration = new();
+    private bool isSubmitted = false;
+
+    protected override void OnInitialized()
+    {
+        registration.EventId = EventId;
+    }
+
+    private async Task HandleSubmit()
+    {
+        await RegistrationService.RegisterAsync(registration);
+        isSubmitted = true;
+    }
+}

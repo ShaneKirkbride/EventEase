@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35230.96
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventEase2", "EventEase2\EventEase2.csproj", "{E1730ED8-C34C-47E9-A67A-E926ACF199D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1730ED8-C34C-47E9-A67A-E926ACF199D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1730ED8-C34C-47E9-A67A-E926ACF199D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1730ED8-C34C-47E9-A67A-E926ACF199D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1730ED8-C34C-47E9-A67A-E926ACF199D8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67A85322-9340-42A3-B038-7D16B5001B02}
+	EndGlobalSection
+EndGlobal

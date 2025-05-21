@@ -1,0 +1,33 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">EventEase2</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<aside class="bg-dark text-white p-3 h-100">
+    <nav class="nav flex-column">
+        <NavLink class="nav-link text-white" href="/" Match="NavLinkMatch.All">
+            🏠 Home
+        </NavLink>
+        <NavLink class="nav-link text-white" href="/events">
+            📅 Browse Events
+        </NavLink>
+        <NavLink class="nav-link text-white" href="@($"/events/{Guid.Empty}/register")">
+            📝 Register (Demo)
+        </NavLink>
+    </nav>
+</aside>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

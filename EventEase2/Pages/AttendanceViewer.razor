@@ -1,0 +1,47 @@
+﻿@page "/events/{EventId:guid}/attendees"
+@inject IRegistrationService RegistrationService
+@using EventEase2.Models
+
+<h3>Attendees</h3>
+
+@if (registrations == null)
+{
+    <p>Loading attendees...</p>
+}
+else if (!registrations.Any())
+{
+    <p>No one has registered yet for this event.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Registered At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reg in registrations)
+            {
+                <tr>
+                    <td>@reg.Name</td>
+                    <td>@reg.Email</td>
+                    <td>@reg.RegisteredAt.ToString("g")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter] public Guid EventId { get; set; }
+
+    private List<EventRegistrationDto>? registrations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        registrations = await RegistrationService.GetRegistrationsForEventAsync(EventId);
+    }
+}

@@ -1,0 +1,49 @@
+﻿@page "/events/{Id:guid}"
+@inject IEventService EventService
+@inject NavigationManager Nav
+@using EventEase2.Models
+@using EventEase2.Services
+
+<h3>Event Details</h3>
+
+@if (Event == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="event-details">
+        <h4>@Event.Name</h4>
+        <p><strong>Date:</strong> @Event.Date.ToShortDateString()</p>
+        <p><strong>Location:</strong> @Event.Location</p>
+        <p><strong>Description:</strong> @Event.Description</p>
+
+        <!-- Optional: editable description -->
+        <label>Update Description:</label>
+        <input @bind="Event.Description" class="form-control" />
+
+        <button class="btn btn-primary mt-2"
+                @onclick="() => Nav.NavigateTo(RegistrationUrl!)">
+            Register
+        </button>
+    </div>
+}
+
+@code {
+    private string? RegistrationUrl => Event is not null ? $"/events/{Event.Id}/register" : null;
+
+    [Parameter] public Guid Id { get; set; }
+    private EventDto? Event;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Event = await EventService.GetEventByIdAsync(Id);
+        }
+        catch (KeyNotFoundException)
+        {
+            Nav.NavigateTo("/404");
+        }
+    }
+}

@@ -1,0 +1,46 @@
+﻿@page "/events"
+
+@inject IEventService EventService
+@inject NavigationManager Nav
+@using EventEase2.Models
+
+<h3 class="text-primary">Register for an Upcoming Event</h3>
+
+@if (events == null)
+{
+    <p>Loading events...</p>
+}
+else if (!events.Any())
+{
+    <p>No events are available for registration at this time.</p>
+}
+else
+{
+    <div class="list-group">
+        @foreach (var evt in events)
+        {
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="mb-1">@evt.Name</h5>
+                    <small class="text-muted">@evt.Date.ToString("MMMM dd, yyyy") — @evt.Location</small>
+                </div>
+                <button class="btn btn-sm btn-outline-primary" @onclick="@(() => Nav.NavigateTo($"/events/{evt.Id}/register"))">
+                    Register
+                </button>
+                <a class="btn btn-outline-secondary btn-sm"
+                   href="@($"/events/{evt.Id}/attendees")">
+                    View Attendees
+                </a>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private List<EventDto>? events;
+  
+    protected override async Task OnInitializedAsync()
+    {
+        events = await EventService.GetUpcomingEventsAsync();
+    }
+}

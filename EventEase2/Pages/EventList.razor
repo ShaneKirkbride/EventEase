@@ -1,0 +1,27 @@
+﻿@page "/events/list"
+
+@inject IEventService EventService
+@using EventEase2.Models
+@using EventEase2.Components
+
+<h3 class="text-primary">Upcoming Events</h3>
+
+@if (events == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <Virtualize Items="@events" Context="e">
+        <EventCard Event="e" />
+    </Virtualize>
+}
+
+@code {
+    private List<EventDto>? events;
+
+    protected override async Task OnInitializedAsync()
+    {
+        events = (await EventService.GetEventsAsync()).ToList();
+    }
+}

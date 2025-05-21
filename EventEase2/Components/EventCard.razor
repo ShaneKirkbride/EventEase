@@ -1,0 +1,20 @@
+﻿@using EventEase2.Models
+@inject NavigationManager Navigation
+@typeparam TEvent where TEvent : EventDto
+
+<div class="event-card border rounded p-3 shadow-sm m-2">
+    <h3>@Event.Name</h3>
+    <p><strong>Date:</strong> @Event.Date.ToString("MMMM dd, yyyy")</p>
+    <p><strong>Location:</strong> @Event.Location</p>
+    <button class="btn btn-primary" @onclick="NavigateToDetails">View Details</button>
+</div>
+
+@code {
+    [Parameter]
+    public TEvent Event { get; set; } = default!;
+
+    private void NavigateToDetails()
+    {
+        Navigation.NavigateTo($"/events/{Event.Id}");
+    }
+}
